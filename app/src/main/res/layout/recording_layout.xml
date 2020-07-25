@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/recordingRestartAllButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recording_restart_all_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Chronometer
+        android:id="@+id/chronometerRecording"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recordingRestartAllButton" />
+
+    <ImageButton
+        android:id="@+id/startRecordingButton"
+        android:layout_width="74dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:contentDescription="start recording track"
+        android:onClick="onRecordingButtonClicked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chronometerRecording"
+        app:srcCompat="@drawable/play_track" />
+
+    <ImageButton
+        android:id="@+id/stopRecordingButton"
+        android:layout_width="74dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="105dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:onClick="onRecordingButtonClicked"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chronometerRecording"
+        app:srcCompat="@drawable/stop_track" />
+
+    <TextView
+        android:id="@+id/track1TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="80dp"
+        android:text="@string/track1"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startRecordingButton" />
+
+    <TextView
+        android:id="@+id/track2TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/track2"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/track1TextView"
+        app:layout_constraintTop_toBottomOf="@+id/track1TextView" />
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="50dp"
+        android:text="@string/recording_send_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/track2TextView" />
+
+    <CheckBox
+        android:id="@+id/check_box_tr1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/track1TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/track1TextView" />
+
+    <CheckBox
+        android:id="@+id/check_box_tr2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/track2TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/track2TextView" />
+
+    <ImageButton
+        android:id="@+id/playTr1Button"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="80dp"
+        android:onClick="playTrackButtonClicked"
+        app:layout_constraintBottom_toBottomOf="@+id/track1TextView"
+        app:layout_constraintStart_toEndOf="@+id/track1TextView"
+        app:layout_constraintTop_toTopOf="@+id/track1TextView"
+        app:srcCompat="@drawable/play_track" />
+
+    <ImageButton
+        android:id="@+id/stopTr1Button"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="30dp"
+        android:onClick="playTrackButtonClicked"
+        app:layout_constraintBottom_toBottomOf="@+id/track1TextView"
+        app:layout_constraintStart_toEndOf="@+id/playTr1Button"
+        app:layout_constraintTop_toTopOf="@+id/track1TextView"
+        app:srcCompat="@drawable/stop_track" />
+
+    <ImageButton
+        android:id="@+id/playTr2Button"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="80dp"
+        android:onClick="playTrackButtonClicked"
+        app:layout_constraintBottom_toBottomOf="@+id/track2TextView"
+        app:layout_constraintStart_toEndOf="@+id/track2TextView"
+        app:layout_constraintTop_toTopOf="@+id/track2TextView"
+        app:srcCompat="@drawable/play_track" />
+
+    <ImageButton
+        android:id="@+id/stopTr2Button"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="30dp"
+        android:onClick="playTrackButtonClicked"
+        app:layout_constraintBottom_toBottomOf="@+id/track2TextView"
+        app:layout_constraintStart_toEndOf="@+id/playTr2Button"
+        app:layout_constraintTop_toTopOf="@+id/track2TextView"
+        app:srcCompat="@drawable/stop_track" />
+
+    <Button
+        android:id="@+id/recordingGoToAllTracksButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/all_tracks_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

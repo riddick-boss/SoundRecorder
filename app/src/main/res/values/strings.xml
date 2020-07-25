@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SoundRecorder</string>
+    <string name="opening_text_view">Enter your name:</string>
+    <string name="opening_edit_text">type name...</string>
+    <string name="opening_button">sumbit</string>
+    <string name="recording_restart_all_button">Restart all</string>
+    <string name="track1">Track 1</string>
+    <string name="track2">Track 2</string>
+    <string name="recording_send_button">Send!</string>
+    <string name="all_tracks_button">all tracks >></string>
+    <string name="choose_all_button">choose all</string>
+    <string name="track_name_text_view">Track name</string>
+    <string name="prefs_id">abandonnedstudio.app.soundrecorder.prefs</string>
+</resources>
