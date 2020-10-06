@@ -16,7 +16,7 @@ Used:
 
 #### 1. Name entering fragment
 
-<img src="/Screenshots/opening.png" width="200">
+<img src="/Screenshots/open.png" width="200">
 
 This fragment is shown only once, when user is opening app for the first time. User is entering his/company/etc name. It is used later to name audio track file. Name is stored in Shared Preferences. If it already exists, audio recording fragment is shown at app opening.
 
