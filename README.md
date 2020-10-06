@@ -12,6 +12,8 @@ Used:
 - Permissions
 - Shared Preferences
 
+## UI
+
 #### 1. Name entering fragment
 
 <img src="/Screenshots/opening.png" width="200">
@@ -40,3 +42,14 @@ List of tracks which were send to Storage. There is option to listen to them dir
 
 List of tracks which user can download. 
 Tracks are stored in Firebase Storage, but reference to them is stored in Database which is updated instantly, so app shows always actual list of tracks possible to download by user. App is creating specified folder only for tracks which are downloaded.
+
+## Firebase
+
+#### What happens in Firebase when user uploads track?
+
+<img src="/Screenshots/firebase_storage.png" width="200">
+When user uploads first track, in Firebase Storage his folder is created, named by name he provided in app and his unique Firebase id. Instantly 2 folders in his folder are being created - "To_user", where Firebase holder can easily put tracks which he wants user to download and "From_user", where it is easy to find every track user has sent. Next tracks which user sends are stored in folder "From_user".
+
+<img src="/Screenshots/firebase_database.png" width="200">
+In Firebase Realtime Databse there is being created a record "To_user" with 2 fields. 
+## App is creating all this stuff so, all what Firebase holder has to do is: in "DownloadUrl" put url to track in Storage and set it's title in "title" field *smile*. 
