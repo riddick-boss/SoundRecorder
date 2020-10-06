@@ -52,4 +52,5 @@ When user uploads first track, in Firebase Storage his folder is created, named 
 
 <img src="/Screenshots/firebase_database.png" width="600">
 In Firebase Realtime Databse there is being created a record "To_user" with 2 fields.
-**App is creating all this stuff so, all what Firebase holder has to do is: in "DownloadUrl" put url to track in Storage and set it's title in "title" field :smile:.** 
+
+**App is creating all this stuff so, all what Firebase holder has to do is: in "DownloadUrl" put url to track in Storage and set it's title in "title" field :smile:.**
