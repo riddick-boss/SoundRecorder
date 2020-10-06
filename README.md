@@ -47,9 +47,9 @@ Tracks are stored in Firebase Storage, but reference to them is stored in Databa
 
 #### What happens in Firebase when user uploads track?
 
-<img src="/Screenshots/firebase_storage.png" width="200">
+<img src="/Screenshots/firebase_storage.png" width="600">
 When user uploads first track, in Firebase Storage his folder is created, named by name he provided in app and his unique Firebase id. Instantly 2 folders in his folder are being created - "To_user", where Firebase holder can easily put tracks which he wants user to download and "From_user", where it is easy to find every track user has sent. Next tracks which user sends are stored in folder "From_user".
 
-<img src="/Screenshots/firebase_database.png" width="200">
+<img src="/Screenshots/firebase_database.png" width="600">
 In Firebase Realtime Databse there is being created a record "To_user" with 2 fields. 
 ## App is creating all this stuff so, all what Firebase holder has to do is: in "DownloadUrl" put url to track in Storage and set it's title in "title" field *smile*. 
