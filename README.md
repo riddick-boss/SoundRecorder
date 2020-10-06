@@ -1,5 +1,5 @@
 # SoundRecorder
-#### Android app which enables user to record audio tracks, listen to them and send to Firebase Storage (which might be held by audio processing company) or store them locally. Firebase Storage holder can send tracks to user, who is able to download them directly from app.
+#### Android app which enables user to record audio tracks, listen to them and send to Firebase Storage (which might be held by audio processing company) or store them locally. Firebase holder can send tracks to user, who is able to download them directly from app.
 
 Used:
 - Java
