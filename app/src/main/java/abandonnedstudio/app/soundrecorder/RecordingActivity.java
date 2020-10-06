@@ -11,6 +11,7 @@ import android.media.MediaRecorder;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -19,10 +20,13 @@ import android.widget.CheckBox;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -30,10 +34,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class RecordingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,7 +51,6 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
 
     final String[] permissions = new String[]{Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
 
-    private final int ALL_PERMISSIONS = 1;
     private MediaRecorder recorder = null;
     private MediaPlayer player = null;
     private boolean firstRecordingsSaved=false, isAlreadyRecording=false;
@@ -102,7 +107,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
                 startActivity(new Intent(RecordingActivity.this, SendAndReceivedActivity.class));
                 try{
                     player.release();
-                }catch (Exception e){
+                }catch (Exception ignored){
                 }
                 finish();
         }
@@ -111,8 +116,10 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     /* *** SENDING FILES TO FIREBASE ACTIONS *** */
 
     //sending tracks to firebase
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     private void sendTracksToFirebase(){
 
+        //checking internet connection
         if(!checkInternetConnection(this)){
             Toast.makeText(this, "No Internet connection", Toast.LENGTH_SHORT).show();
             return;
@@ -122,7 +129,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH:mm:ss", Locale.getDefault());
         StorageReference filePathInFirebase;
         Uri uriTrack1, uriTrack2;
-        final String currentDateAndTime, uploadedFolderName=this.getExternalFilesDir("/").getAbsolutePath()+"/Uploaded";
+        final String currentDateAndTime, uploadedFolderName= Objects.requireNonNull(this.getExternalFilesDir("/")).getAbsolutePath()+"/Uploaded";
 
         //checking if folder "Uploaded" exists, if not - creating it
         dir= new File(uploadedFolderName);
@@ -133,7 +140,9 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
             }
         }
 
-        //sending tracks which were chosen (ticked) to sent to firebase and saving them on user's device
+        //sending tracks which were chosen (ticked) to firebase and saving them on user's device
+
+        //sending only first track
         if(checkBoxTr1.isChecked() && !(checkBoxTr2.isChecked())){
             try{
                 progressDialog.setMessage("Uploading...");
@@ -169,6 +178,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
                 Toast.makeText(this, "Track not recorded yet", Toast.LENGTH_SHORT).show();
             }
         }
+        //sending only second track
         else if((checkBoxTr2.isChecked()) && !(checkBoxTr1.isChecked())){
             try{
                 progressDialog.setMessage("Uploading...");
@@ -203,6 +213,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
                 Toast.makeText(this, "Track not recorded yet", Toast.LENGTH_SHORT).show();
             }
         }
+        //sending both tracks
         else if((checkBoxTr1.isChecked()) && (checkBoxTr2.isChecked())){
             try{
                 progressDialog.setMessage("Uploading...");
@@ -259,6 +270,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     }
 
     //used to be able to download tracks in future easily
+    //creating
     private void CreateDatabaseReference(){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(getName()).child("To_User");
         DatabaseReference newDbRef = databaseReference.push();
@@ -270,12 +282,13 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         ConnectivityManager cm = (ConnectivityManager) ct.getSystemService(CONNECTIVITY_SERVICE);
         NetworkCapabilities networkCapabilities = cm.getNetworkCapabilities(cm.getActiveNetwork());
         try{
-            assert networkCapabilities != null;
-            return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+            if (networkCapabilities != null) {
+                return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+            }
+            else return false;
         }catch(Exception e){
             return false;
         }
-
     }
 
     //deleting recorded tracks which aren't sent to firebase
@@ -284,12 +297,12 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         try {
             track1 = new File(trackPath1);
             track1.delete();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         try {
             track2 = new File(trackPath2);
             track2.delete();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         Toast.makeText(this, "Tracks deleted", Toast.LENGTH_SHORT).show();
         firstRecordingsSaved = false;
@@ -315,7 +328,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
 
     //actions to do on starting recording track
     private void startRecording() {
-        //checking if track is already recording
+        //checking if track is already being recorded
         if(!isAlreadyRecording) {
             //checking if app has permissions to access audio
             if (checkAudioPermission()) {
@@ -343,7 +356,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void stopRecording(){
-        //checking if track is already recording
+        //checking if track is already being recorded
         if(isAlreadyRecording) {
             recorder.stop();
             chronometer.stop();
@@ -381,6 +394,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
 
     private void playTrack(int nrTrack){
         player = new MediaPlayer();
+        //if track which user wants to play is not recorded yet, a toast will appear
         try{
             if(nrTrack==1){
                 player.setDataSource(trackPath1);
@@ -433,6 +447,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        //preventing leaving app when track is still being recorded
         if(isAlreadyRecording){
             Toast.makeText(this, "Track is still recording, pause it", Toast.LENGTH_SHORT).show();
         }
@@ -448,6 +463,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
             return true;
         }
         else{
+            int ALL_PERMISSIONS = 1;
             ActivityCompat.requestPermissions(this, permissions, ALL_PERMISSIONS);
             return false;
         }
@@ -461,7 +477,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
             trackPath += "/" + getName() + "_audio1.3gp";
             trackPath1=trackPath;
         } else {
-            trackPath = this.getExternalFilesDir("/").getAbsolutePath();
+            trackPath = Objects.requireNonNull(this.getExternalFilesDir("/")).getAbsolutePath();
             trackPath += "/" + getName() + "_audio2.3gp";
             trackPath2=trackPath;
         }

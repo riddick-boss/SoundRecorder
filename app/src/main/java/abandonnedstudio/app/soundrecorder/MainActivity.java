@@ -1,6 +1,5 @@
 package abandonnedstudio.app.soundrecorder;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     //Layout Bars
-    Button sumbitButton;
+    Button submitButton;
     EditText nameEditText;
 
     public String name=null;
@@ -33,12 +32,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.opening_layout);
 
         //initialize layout elements
-        sumbitButton = (Button) findViewById(R.id.openingButton);
+        submitButton = (Button) findViewById(R.id.openingButton);
         nameEditText = (EditText) findViewById(R.id.openingEditText);
 
         //set actions for button
         //save name and start recording activity
-        sumbitButton.setOnClickListener(new View.OnClickListener() {
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 name = nameEditText.getText().toString();
@@ -56,16 +55,5 @@ public class MainActivity extends AppCompatActivity {
     private String loadName(){
         SharedPreferences prefs = this.getSharedPreferences(getString(R.string.prefs_id), Context.MODE_PRIVATE);
         return prefs.getString("Name", null);
-    }
-
-
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
     }
 }

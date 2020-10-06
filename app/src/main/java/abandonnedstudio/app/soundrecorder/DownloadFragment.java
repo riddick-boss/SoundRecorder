@@ -15,18 +15,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
+import java.util.Objects;
 
 public class DownloadFragment extends Fragment {
 
     private RecordingActivity recordingActivity;
-    private RecyclerView myRecyclerView;
-    private DatabaseReference dbDownRef;
     private FirebaseRecyclerOptions<ToDownload> downloadOptions;
     private FirebaseRecyclerAdapter<ToDownload, ToDownloadViewHolder> firebaseRecyclerAdapter;
 
@@ -41,18 +41,18 @@ public class DownloadFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recordingActivity = new RecordingActivity();
-        myRecyclerView = view.findViewById(R.id.downloadRecycylerView);
+        RecyclerView myRecyclerView = view.findViewById(R.id.downloadRecycylerView);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //checking internet connection
-        if(!recordingActivity.checkInternetConnection(getContext())){
+        if(!recordingActivity.checkInternetConnection(requireContext())){
             Toast.makeText(getContext(), "No Internet connection", Toast.LENGTH_SHORT).show();
         }
-        //getting right (user's) database reference
-        dbDownRef = FirebaseDatabase.getInstance().getReference().child(getUserName()).child("To_User");
+        //getting right user's database reference
+        DatabaseReference dbDownRef = FirebaseDatabase.getInstance().getReference().child(getUserName()).child("To_User");
         dbDownRef.keepSynced(true);
         downloadOptions = new FirebaseRecyclerOptions.Builder<ToDownload>().setQuery(dbDownRef, ToDownload.class).build();
-        //lot of stuff happening here to make recyclerview work properly
+        //binding recyclerview with tracks from firebase which are available to download
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ToDownload, ToDownloadViewHolder>(downloadOptions) {
             @Override
             protected void onBindViewHolder(@NonNull ToDownloadViewHolder holder, int position, @NonNull final ToDownload model) {
@@ -89,14 +89,14 @@ public class DownloadFragment extends Fragment {
     //downloading track
     private void downloadTrack(String url, String trackName) {
         try {
-            //checking internet connection, if not connected finishing function, otherwise tracks might be uploaded after connection multiple times
-            if(!recordingActivity.checkInternetConnection(getContext())){
+            //checking internet connection, if not connected finishing function, otherwise tracks might be uploaded multiple times after establishing connection
+            if(!recordingActivity.checkInternetConnection(requireContext())){
                 Toast.makeText(getContext(), "No Internet connection", Toast.LENGTH_SHORT).show();
                 return;
             }
             Toast.makeText(getContext(), "Downloading started...", Toast.LENGTH_SHORT).show();
             File dir;
-            String downloadFolderName = getContext().getExternalFilesDir("/").getAbsolutePath() + "/Downloaded";
+            String downloadFolderName = Objects.requireNonNull(Objects.requireNonNull(getContext()).getExternalFilesDir("/")).getAbsolutePath() + "/Downloaded";
 
             //checking if folder "Downloaded" exists, if not - creating it
             dir = new File(downloadFolderName);
@@ -136,7 +136,7 @@ public class DownloadFragment extends Fragment {
 
     //getting user name
     private String getUserName(){
-        SharedPreferences prefs = getContext().getSharedPreferences(getString(R.string.prefs_id), Context.MODE_PRIVATE);
+        SharedPreferences prefs = Objects.requireNonNull(getContext()).getSharedPreferences(getString(R.string.prefs_id), Context.MODE_PRIVATE);
         return prefs.getString("Name", null);
     }
 }

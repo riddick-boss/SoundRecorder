@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/Constraint_layout_item_download"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:backgroundTint="@android:color/transparent">
 
     <TextView
         android:id="@+id/listTrackNameDownloadTextView"
@@ -25,5 +26,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/stat_sys_download" />
+        app:srcCompat="@android:drawable/stat_sys_download"
+        android:backgroundTint="@android:color/transparent"
+        android:contentDescription="TODO"
+        tools:ignore="ContentDescription,HardcodedText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

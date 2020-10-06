@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/Constraint_layout_item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:backgroundTint="@android:color/transparent">
 
     <ImageButton
         android:id="@+id/listPlayTrackButtonDownload"
@@ -15,7 +16,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/play_track" />
+        app:srcCompat="@drawable/play_track"
+        android:backgroundTint="@android:color/transparent"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/listTrackNameDownloadTextView"

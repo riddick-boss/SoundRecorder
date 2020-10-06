@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,6 +22,7 @@ public class SendRecyclerViewAdapter extends RecyclerView.Adapter<SendRecyclerVi
     public SendRecyclerViewAdapter(File[] allTracks, OnItemTrackClick onItemTrackClick){
         this.filesArray = allTracks;
         this.onItemTrackClick = onItemTrackClick;
+        //sorting tracks - the newest on top
         Arrays.sort(filesArray, Collections.<File>reverseOrder());
     }
 
@@ -28,7 +30,6 @@ public class SendRecyclerViewAdapter extends RecyclerView.Adapter<SendRecyclerVi
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_in_recyclerview_layout, parent, false);
-
 
         return new MyViewHolder(v);
     }
@@ -46,13 +47,12 @@ public class SendRecyclerViewAdapter extends RecyclerView.Adapter<SendRecyclerVi
     //inner class
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private ImageButton listPlayTrack;
         private TextView listTrackName;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            listPlayTrack = itemView.findViewById(R.id.listPlayTrackButtonDownload);
+            ImageButton listPlayTrack = itemView.findViewById(R.id.listPlayTrackButtonDownload);
             listTrackName = itemView.findViewById(R.id.listTrackNameDownloadTextView);
 
             listPlayTrack.setOnClickListener(this);

@@ -11,4 +11,5 @@
     <string name="choose_all_button">choose all</string>
     <string name="track_name_text_view">Track name</string>
     <string name="prefs_id">abandonnedstudio.app.soundrecorder.prefs</string>
+    <string name="start_recording_track">start recording track</string>
 </resources>

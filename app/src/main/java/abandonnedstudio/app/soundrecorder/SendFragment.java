@@ -13,15 +13,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.io.File;
+import java.util.Objects;
 
 public class SendFragment extends Fragment implements SendRecyclerViewAdapter.OnItemTrackClick {
 
-    private File[] allFiles;
-    private SendRecyclerViewAdapter sendRecyclerViewAdapter;
-    private RecyclerView recyclerView;
     private MediaPlayer pl = null;
-    private File fileToPlay;
 
     @Nullable
     @Override
@@ -40,12 +38,12 @@ public class SendFragment extends Fragment implements SendRecyclerViewAdapter.On
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = view.findViewById(R.id.sendRecyclerView);
-
-        String trackPath = getActivity().getExternalFilesDir("/").getAbsolutePath()+"/Uploaded";
+        //setting recyclerview and binding it with tracks which were send to Firebase
+        RecyclerView recyclerView = view.findViewById(R.id.sendRecyclerView);
+        String trackPath = Objects.requireNonNull(Objects.requireNonNull(getActivity()).getExternalFilesDir("/")).getAbsolutePath()+"/Uploaded";
         File directory = new File(trackPath);
-        allFiles = directory.listFiles();
-        sendRecyclerViewAdapter = new SendRecyclerViewAdapter(allFiles, this);
+        File[] allFiles = directory.listFiles();
+        SendRecyclerViewAdapter sendRecyclerViewAdapter = new SendRecyclerViewAdapter(allFiles, this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(sendRecyclerViewAdapter);
@@ -53,8 +51,7 @@ public class SendFragment extends Fragment implements SendRecyclerViewAdapter.On
 
     @Override
     public void onClickListen(File file, int position) {
-        fileToPlay = file;
-        playAudio(fileToPlay);
+        playAudio(file);
     }
 
     private void playAudio(File track){

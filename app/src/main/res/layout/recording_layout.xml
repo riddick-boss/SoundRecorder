@@ -9,7 +9,9 @@
         android:id="@+id/recordingRestartAllButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/background_dark"
         android:text="@string/recording_restart_all_button"
+        android:textColor="#D50000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,9 +31,10 @@
         android:layout_height="70dp"
         android:layout_marginStart="105dp"
         android:layout_marginTop="20dp"
-        android:backgroundTint="@android:color/darker_gray"
-        android:contentDescription="start recording track"
+        android:backgroundTint="@android:color/transparent"
+        android:contentDescription="@string/start_recording_track"
         android:onClick="onRecordingButtonClicked"
+        android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chronometerRecording"
         app:srcCompat="@drawable/play_track" />
@@ -42,11 +45,13 @@
         android:layout_height="70dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="105dp"
-        android:backgroundTint="@android:color/darker_gray"
+        android:backgroundTint="@android:color/transparent"
         android:onClick="onRecordingButtonClicked"
         app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="fitXY"
         app:layout_constraintTop_toBottomOf="@+id/chronometerRecording"
-        app:srcCompat="@drawable/stop_track" />
+        app:srcCompat="@drawable/stop_track"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/track1TextView"
@@ -75,7 +80,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/colorPrimary"
         android:text="@string/recording_send_button"
+        android:textColor="@android:color/holo_orange_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/track2TextView" />
@@ -103,49 +110,58 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="80dp"
+        android:backgroundTint="@android:color/transparent"
         android:onClick="playTrackButtonClicked"
         app:layout_constraintBottom_toBottomOf="@+id/track1TextView"
         app:layout_constraintStart_toEndOf="@+id/track1TextView"
         app:layout_constraintTop_toTopOf="@+id/track1TextView"
-        app:srcCompat="@drawable/play_track" />
+        app:srcCompat="@drawable/play_track"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/stopTr1Button"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="30dp"
+        android:backgroundTint="@android:color/transparent"
         android:onClick="playTrackButtonClicked"
         app:layout_constraintBottom_toBottomOf="@+id/track1TextView"
         app:layout_constraintStart_toEndOf="@+id/playTr1Button"
         app:layout_constraintTop_toTopOf="@+id/track1TextView"
-        app:srcCompat="@drawable/stop_track" />
+        app:srcCompat="@drawable/stop_track"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/playTr2Button"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="80dp"
+        android:backgroundTint="@android:color/transparent"
         android:onClick="playTrackButtonClicked"
         app:layout_constraintBottom_toBottomOf="@+id/track2TextView"
         app:layout_constraintStart_toEndOf="@+id/track2TextView"
         app:layout_constraintTop_toTopOf="@+id/track2TextView"
-        app:srcCompat="@drawable/play_track" />
+        app:srcCompat="@drawable/play_track"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/stopTr2Button"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="30dp"
+        android:backgroundTint="@android:color/transparent"
         android:onClick="playTrackButtonClicked"
         app:layout_constraintBottom_toBottomOf="@+id/track2TextView"
         app:layout_constraintStart_toEndOf="@+id/playTr2Button"
         app:layout_constraintTop_toTopOf="@+id/track2TextView"
-        app:srcCompat="@drawable/stop_track" />
+        app:srcCompat="@drawable/stop_track"
+        tools:ignore="ContentDescription" />
 
     <Button
         android:id="@+id/recordingGoToAllTracksButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_orange_light"
         android:text="@string/all_tracks_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

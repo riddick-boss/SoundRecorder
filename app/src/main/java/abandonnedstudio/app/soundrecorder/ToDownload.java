@@ -2,6 +2,9 @@ package abandonnedstudio.app.soundrecorder;
 
 public class ToDownload {
 
+    //class used by firebase api
+    //necessary to make firebase recyclerview adapter work properly
+
     private String title;
     private String DownloadUrl;
 

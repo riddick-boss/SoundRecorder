@@ -25,31 +25,37 @@
         android:id="@+id/sendFragmentButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/downloadFragmentButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_placeholder"
-        app:srcCompat="@android:drawable/presence_audio_busy" />
+        app:srcCompat="@android:drawable/presence_audio_busy"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/downloadFragmentButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:backgroundTint="@android:color/holo_purple"
         android:scaleType="fitCenter"
-        app:layout_constraintStart_toEndOf="@id/sendFragmentButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/sendFragmentButton"
         app:layout_constraintTop_toBottomOf="@+id/fragment_placeholder"
-        app:srcCompat="@android:drawable/stat_sys_download_done" />
+        app:srcCompat="@android:drawable/stat_sys_download_done"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/backToRecordingButton"
         android:layout_width="80dp"
         android:layout_height="0dp"
         android:scaleType="fitCenter"
+        android:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@+id/fragment_placeholder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/abc_vector_test" />
+        app:srcCompat="@drawable/abc_vector_test"
+        tools:ignore="ContentDescription,PrivateResource" />
 </androidx.constraintlayout.widget.ConstraintLayout>
