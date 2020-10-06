@@ -25,7 +25,7 @@ This fragment is shown only once, when user is opening app for the first time. U
 <img src="/Screenshots/recording.png" width="200">
 <img src="/Screenshots/upload.png" width="200">
 
-In this fragment user is able to record tracks, listen to them and decide which to send to Firebase Storage. There is option to start recording, stop it and continue recording later. Tracks which user sent to Storage are also saved locally, so user has his own copy of tracks. Tracks are deleted if user decides not to send them, for the reason of saving local memory - if track is not good enough to send it, there is no reason to keep it. App is creating folder only for tracks which user sent. Track files are named like "name_which_user_entered_current_time_in_miliseconds". That's why app is asking user to enter his name at first opening. This naming convention is convinient, because it is easy to check who sent file and when. User has no affect on naming tracks. However, for every user unique id is been created in Firebase to avoid situation when few users enter the same name and it is not possible to declare which track belongs to who. In app there are 2 fields "track 1" and "track 2". If user record first track, he will be able to listen to it under field "track 1", second track will be under "track 2", third track will replace first track, so it will be under field "track 1", and so on.
+In this fragment user is able to record tracks, listen to them and decide which to send to Firebase Storage. There is option to start recording, stop it and continue recording later. Tracks which user sent to Storage are also saved locally, so user has his own copy of tracks. Tracks are deleted if user decides not to send them, for the reason of saving local memory - if track is not good enough to send it, there is no reason to keep it. App is creating folder in device memory only for tracks which user sent. Track files are named like "name_which_user_entered_current_time_in_miliseconds". That's why app is asking user to enter his name at first opening. This naming convention is convinient, because it is easy to check who sent file and when. User has no affect on naming tracks. However, for every user unique id is been created in Firebase to avoid situation when few users enter the same name and it is not possible to declare which track belongs to who. In app there are 2 fields "track 1" and "track 2". If user record first track, he will be able to listen to it under field "track 1", second track will be under "track 2", third track will replace first track, so it will be under field "track 1", and so on.
 
 <img src="/Screenshots/permission.png" width="200">
 App is checking for audio recording and storing permission and asking for it if necessary.
@@ -40,8 +40,8 @@ List of tracks which were send to Storage. There is option to listen to them dir
 
 <img src="/Screenshots/to_download.png" width="200">
 
-List of tracks which user can download. 
-Tracks are stored in Firebase Storage, but reference to them is stored in Database which is updated instantly, so app shows always actual list of tracks possible to download by user. App is creating specified folder only for tracks which are downloaded.
+List of tracks which user can download. [FirebaseUI](https://github.com/firebase/FirebaseUI-Android/tree/master/database) is used to bind recyclerview.
+Tracks are stored in Firebase Storage, but reference to them is stored in Database which is updated instantly, so app shows always actual list of tracks possible to download by user. App is creating specified folder in device memory only for tracks which are downloaded.
 
 ## Firebase
 
